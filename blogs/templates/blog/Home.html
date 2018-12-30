@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+{% block title %}
+  {{ board.name }}  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="container">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th>User</th>
+            <th>Posts</th>
+            <th>Last Post</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>
+                <a href="{% url 'blog:account_article' user_id=user.id%}"><h2>{{ user.username }}</h2></a>
+              </td>
+              <td class="align-middle">{{Post.get_posts_count}}</td>
+              <td></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</body>
+{% endblock %}
