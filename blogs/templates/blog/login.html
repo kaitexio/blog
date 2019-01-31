@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-
+{% load socialaccount %}
 {% load static %}
 
 {% block content %}
@@ -19,8 +19,12 @@
             </form>
           </div>
           <div class="card-footer text-muted text-center">
-            New to Django Boards? <a href="{% url 'signup' %}">Sign up</a>
-           <button type="button" onclick="location.href='{% url 'social:begin' 'twitter' %}'">Twitterログイン</button>
+             <a href="{% url 'signup' %}">Sign up</a>
+          </div>
+          <div class="card-footer text-muted text-bottom">
+          <a href="{% provider_login_url 'twitter'%}"><i class="fab fa-twitter-square fa-3x fa-fw"></i></a>
+          <a href="#"><i class="fab fa-google fa-3x fa-fw"></i></a>
+          <a href="#"><i class="fab fa-github fa-3x fa-fw "></i></a>
           </div>
         </div>
         <div class="text-center py-2">

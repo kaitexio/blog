@@ -41,13 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.twitter',
     'blogs',
     'polls',
     'widget_tweaks',
     'stdimage',
     'rest_framework',
     'django_filters',
-    'social_django',
     'tweepy',
 ]
 
@@ -74,8 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+
             ],
         },
     },
@@ -139,13 +142,11 @@ LOGIN_REDIRECT_URL = 'blog:Home'
 LOGOUT_REDIRECT_URL = 'blog:login'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+LOGIN_URL = 'blog:login'
 
 
 AUTHENTICATION_BACKENDS = [
-     'social_core.backends.twitter.TwitterOAuth',
-     'django.contrib.auth.backends.ModelBackend',
- ]
-
-SOCIAL_AUTH_TWITTER_KEY = 'E5rzyQyYfK80RJRWPNvLpOOi2' # Consumer Key (API Key)
-SOCIAL_AUTH_TWITTER_SECRET = 'ssAz6p6qvkej4vcr9KabAkhO15aetpYS47GiC1Slc3oPYJfjmH' # Consumer Secret (API Secret)
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/blogs/top' # リダイレクトURL
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+SITE_ID = 1

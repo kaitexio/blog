@@ -21,6 +21,6 @@ urlpatterns = [
     path('comment/<int:pk>/', views.CommentView.as_view(), name='comment'),
     path('login/', auth_views.LoginView.as_view(template_name='blog/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('top/', views.top_page, name="top"),
-    path('tweet/', views.AccountView.as_view(), name='accounts'),
+
+
  ]

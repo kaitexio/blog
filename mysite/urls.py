@@ -22,6 +22,7 @@ from rest_framework import routers
 from blogs.urls import views
 from blogs.urls import router as blog_router
 
+
 router = routers.DefaultRouter()
 router.register('users', views.PostViewSet)
 router.register('comment', views.CommentViewSet)
@@ -32,7 +33,8 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     path('api/', include(blog_router.urls)),
-    path('blogs/', include('social_django.urls', namespace='social')),
+    path('accounts/', include('allauth.urls')),
+
 ]
 
 
