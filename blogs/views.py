@@ -118,7 +118,7 @@ def post_remove(pk):
     return redirect('blog:Home')
 
 
- #Djangorestframework
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
