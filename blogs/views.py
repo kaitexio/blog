@@ -117,6 +117,7 @@ def post_remove(request,pk):
 
 
  #API関連
+ #Djangorestframework
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
