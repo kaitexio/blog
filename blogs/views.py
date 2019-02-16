@@ -116,7 +116,6 @@ def post_remove(request,pk):
     return redirect('blog:Home')
 
 
- #API関連
  #Djangorestframework
 
 class PostViewSet(viewsets.ModelViewSet):
