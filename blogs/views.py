@@ -8,7 +8,7 @@ from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from .serializer import PostSerializer, CommentSerializer
 import tweepy
-from allauth.socialaccount.models import SocialLogin, SocialToken, SocialAccount
+from allauth.socialaccount.models import SocialToken
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
@@ -116,7 +116,7 @@ def post_remove(request,pk):
     return redirect('blog:Home')
 
 
- #API関連
+ #Djangorestframework
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
