@@ -1,14 +1,15 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from requests import request
 from .models import Post, Comment
 from .forms import PostForm
 from django.views import generic
 from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from .serializer import PostSerializer, CommentSerializer
-import tweepy
-from allauth.socialaccount.models import SocialToken
+from tweepy import OAuthHandler, API
+import allauth.socialaccount.models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
@@ -28,9 +29,10 @@ class AccountArticleView(LoginRequiredMixin, generic.ListView):
         paginate_by = 10
         context_object_name = 'posts'
         redirect_field_name = 'blogs:login'
+
         def get_queryset(self):
-         user_id = self.kwargs['user_id']
-         return Post.objects.filter(author_id=user_id)
+            user_id = self.kwargs['user_id']
+            return Post.objects.filter(author_id=user_id)
 
 
 class PostDetailView(LoginRequiredMixin, generic.DetailView):
@@ -63,16 +65,16 @@ class NewPostView(LoginRequiredMixin, generic.CreateView):
 
     def post_tweet(self):
         user = self.request.user
-        access_token = SocialToken.objects.get(account__user=user, account__provider='twitter')
+        access_token = allauth.socialaccount.models.SocialToken.objects.get(account__user=user, account__provider='twitter')
         ts = access_token
         access_token_secret = ts.token_secret
         access_token = str(access_token)
         access_token_secret = str(access_token_secret)
         consumer_key = 'E5rzyQyYfK80RJRWPNvLpOOi2'
         consumer_secret = 'ssAz6p6qvkej4vcr9KabAkhO15aetpYS47GiC1Slc3oPYJfjmH'
-        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        auth = OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
-        api = tweepy.API(auth)
+        api = API(auth)
         api.update_status("ブログを投稿しました")
 
     def form_valid(self, form):
@@ -110,13 +112,13 @@ def post_edit(request, pk):
 
 
 @login_required()
-def post_remove(request,pk):
+def post_remove(pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()
     return redirect('blog:Home')
 
 
- #Djangorestframework
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
