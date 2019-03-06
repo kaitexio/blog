@@ -14,25 +14,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 
-
 class HomeView(LoginRequiredMixin, generic.ListView):
-        model = get_user_model()
-        template_name = 'blog/Home.html'
-        context_object_name = 'users'
-        redirect_field_name = 'blog:login'
-
+    model = get_user_model()
+    template_name = 'blog/Home.html'
+    context_object_name = 'users'
+    redirect_field_name = 'blog:login'
 
 
 class AccountArticleView(LoginRequiredMixin, generic.ListView):
-        model = Post
-        template_name = 'blog/account_article.html'
-        paginate_by = 10
-        context_object_name = 'posts'
-        redirect_field_name = 'blogs:login'
+    model = Post
+    template_name = 'blog/account_article.html'
+    paginate_by = 10
+    context_object_name = 'posts'
+    redirect_field_name = 'blogs:login'
 
-        def get_queryset(self):
-            user_id = self.kwargs['user_id']
-            return Post.objects.filter(author_id=user_id)
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        return Post.objects.filter(author_id=user_id)
 
 
 class PostDetailView(LoginRequiredMixin, generic.DetailView):
@@ -55,17 +53,16 @@ class CommentView(LoginRequiredMixin, generic.CreateView):
         return redirect('blog:post_detail', pk=post_pk)
 
 
-
-
 class NewPostView(LoginRequiredMixin, generic.CreateView):
     model = Post
     form_class = PostForm
-    success_url ='blog:account_article'
+    success_url = 'blog:account_article'
     template_name = 'blog/post_new.html'
 
     def post_tweet(self):
         user = self.request.user
-        access_token = allauth.socialaccount.models.SocialToken.objects.get(account__user=user, account__provider='twitter')
+        access_token = allauth.socialaccount.models.SocialToken.objects.get(account__user=user,
+                                                                            account__provider='twitter')
         ts = access_token
         access_token_secret = ts.token_secret
         access_token = str(access_token)
@@ -92,8 +89,6 @@ class NewPostView(LoginRequiredMixin, generic.CreateView):
         return render(request, 'blog/post_edit.html', {'form': form})
 
 
-
-
 @login_required()
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -118,8 +113,6 @@ def post_remove(pk):
     return redirect('blog:Home')
 
 
-
-
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
@@ -128,6 +121,3 @@ class PostViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-
-
-
