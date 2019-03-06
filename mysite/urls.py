@@ -22,7 +22,6 @@ from rest_framework import routers
 from blogs.urls import views
 from blogs.urls import router as blog_router
 
-
 router = routers.DefaultRouter()
 router.register('users', views.PostViewSet)
 router.register('comment', views.CommentViewSet)
@@ -38,4 +37,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
