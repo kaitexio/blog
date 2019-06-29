@@ -67,8 +67,8 @@ class NewPostView(LoginRequiredMixin, generic.CreateView):
         access_token_secret = ts.token_secret
         access_token = str(access_token)
         access_token_secret = str(access_token_secret)
-        consumer_key = 'E5rzyQyYfK80RJRWPNvLpOOi2'
-        consumer_secret = 'ssAz6p6qvkej4vcr9KabAkhO15aetpYS47GiC1Slc3oPYJfjmH'
+        consumer_key = ''
+        consumer_secret = ''
         auth = OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
         api = API(auth)

@@ -1,28 +1,28 @@
 {% extends 'blog/base.html' %}
 {% block title %}
-  {{ board.name }}  {{ block.super }}
+{{ board.name }}  {{ block.super }}
 {% endblock %}
 
 {% block content %}
 <body>
-    <div class="container">
-      <ol class="breadcrumb my-4">
+<div class="container">
+    <ol class="breadcrumb my-4">
         <thead class="thead-dark">
         <li class="breadcrumb-item active"></li>
         </thead>
-      </ol>
-      {% for post in posts %}
-      <table class="table">
+    </ol>
+    {% for post in posts %}
+    <table class="table">
         <tbody>
-            <tr>
-                <td>
-                    <h1><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-                    <h6>{{post.post_date}}</h6>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                <h1><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                <h6>{{post.post_date}}</h6>
+            </td>
+        </tr>
         </tbody>
-        </table>
-     {% endfor %}
-     </div>
+    </table>
+    {% endfor %}
+</div>
 </body>
 {% endblock %}

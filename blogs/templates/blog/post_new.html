@@ -3,12 +3,11 @@
 {% block title %}New_Post{% endblock %}
 
 
-
 {% block content %}
 <h1>New Post</h1>
-<form method="Post"  enctype="multipart/form-data">
-{% csrf_token %}
-{% include 'includes/form.html' %}
- <button type="submit" class="btn btn-success">Post</button>
+<form method="Post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-success">Post</button>
 </form>
 {% endblock %}
