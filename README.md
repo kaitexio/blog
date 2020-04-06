@@ -1,6 +1,5 @@
 # Blog
 
-  Djangotutorial + Docker + DRF(djangorestframework)でのapi化 + 外部のapiを使用する練習で作りました。
   
   
   
